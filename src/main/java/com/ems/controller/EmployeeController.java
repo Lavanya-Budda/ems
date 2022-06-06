@@ -44,8 +44,16 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/deleteemp/{empId}")
-    public String deleteEmp(@PathVariable("empId") Long empId) {
-        String s = employeeRepo.deleteById(empId);
-        return s;
+    public void deleteEmp(@PathVariable Long empId) {
+
+//        employeeRepo.deleteById(empId);
+//        return "Deleted Successfully !!!";
+          List<Employee> employees=employeeRepo.findAll();
+        for (Employee employee:employees) {
+            if (employee.getEmpId().equals(empId)){
+                employeeRepo.delete(employee);
+            }
+        }
+
     }
 }
